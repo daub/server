@@ -1,17 +1,11 @@
 import test from 'ava'
 
-import { MongoDBServer } from 'mongomem'
-import mongoose from '@daub/mongoose'
+import mongoose from '@daub/test-mongoose'
 
 import thingSchema from '../lib'
 
-test.before(async t => {
-  await MongoDBServer.start()
-  const url = await MongoDBServer.getConnectionString()
-  return mongoose.connect(url)
-})
-
-test.after.always(t => MongoDBServer.tearDown())
+test.before(mongoose.start)
+test.after.always(mongoose.tearDown)
 
 test('Schema', async t => {
   const Thing = mongoose.model('Thing', thingSchema)
