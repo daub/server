@@ -1,8 +1,16 @@
+const {
+  pipe,
+  entries,
+  map,
+  apply,
+  keyBy,
+  bindKey
+} = require('lodash/fp')
+
 const mongoose = require('@daub/mongoose')
+const schemas = require('./schemas')
 
-const thingSchema = mongoose.Schema({ name: String })
-const Thing = mongoose.model('Thing', thingSchema)
+const compile = bindKey(mongoose, 'model')
+const build = pipe(entries, map(apply(compile)), keyBy('modelName'))
 
-module.exports = {
-  Thing
-}
+module.exports = build(schemas)
