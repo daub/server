@@ -1,0 +1,29 @@
+{
+  "name": "@daub/db-schema-thing",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "keywords": [
+    "db",
+    "schema",
+    "thing"
+  ],
+  "scripts": {
+    "test": "ava -s --fail-fast",
+    "lint": "standard",
+    "prepublishOnly": "npm test && npm run lint"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "ava": "^0.22.0",
+    "mongomem": "^0.1.9",
+    "standard": "^10.0.3"
+  },
+  "dependencies": {
+    "@daub/mongoose": "^0.0.1"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.spec.js"
+    ]
+  }
+}
