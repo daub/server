@@ -2,11 +2,9 @@ const Koa = require('koa')
 
 const bodyParser = require('koa-bodyparser')
 
-const Db = require('@daub/db')
+const db = require('@daub/db')
 
 const app = new Koa()
-
-const db = new Db()
 
 app.context.models = db.models
 
