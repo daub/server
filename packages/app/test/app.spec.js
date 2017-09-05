@@ -11,16 +11,24 @@ test.before(async t => {
   request = supertest(server)
 })
 
-test('body parser', async t => {
+test('bodyparser', async t => {
   const data = { name: 'exo' }
 
-  app.use(async ctx => {
+  use(t, ctx => {
     ctx.body = ctx.request.body
   })
 
   const res = await request
-    .post('/')
+    .post('/bodyparser')
     .send(data)
 
   t.deepEqual(res.body, data)
 })
+
+function use (t, fn) {
+  return app.use((ctx, next) => {
+    if (ctx.path !== `/${t.title}`) return next()
+    return fn(ctx, next)
+  })
+}
+
