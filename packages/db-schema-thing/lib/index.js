@@ -1,4 +1,4 @@
-const { Schema } = require('@daub/mongoose')
+const { Schema } = require('mongoose')
 
 const props = require('./props')
 
