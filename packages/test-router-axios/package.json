@@ -1,12 +1,12 @@
 {
-  "name": "@daub/app-router-things",
+  "name": "@daub/test-router-axios",
   "version": "0.0.1",
   "main": "lib/index.js",
   "keywords": [
     "server",
-    "api",
+    "test",
     "router",
-    "things"
+    "axios"
   ],
   "scripts": {
     "test": "ava -s --fail-fast",
@@ -15,12 +15,16 @@
   },
   "license": "UNLICENSED",
   "devDependencies": {
-    "@daub/test-router-axios": "^0.0.1",
     "ava": "^0.22.0",
-    "standard": "^10.0.3"
+    "standard": "^10.0.3",
+    "koa-router": "^7.2.1"
   },
   "dependencies": {
-    "koa-router": "^7.2.1"
+    "@daub/db": "^0.0.1",
+    "axios-serve": "^1.1.0",
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "mongomem": "^0.1.9"
   },
   "ava": {
     "files": [

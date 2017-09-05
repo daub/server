@@ -1,15 +1,17 @@
 import test from 'ava'
 
-import Request from './request'
+import Request from '@daub/test-router-axios'
 
 import router from '../lib'
 
 const request = Request(router)
 
+test.before(Request.loadDb)
+
 test('/things', async t => {
   await request
     .get('/things')
-    .then(res => t.is(res.data, 'get'))
+    .then(res => t.deepEqual(res.data, []))
 
   await request
     .post('/things')

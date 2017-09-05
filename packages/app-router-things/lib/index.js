@@ -5,10 +5,16 @@ const router = new Router({
 })
 
 router
-  .get('/', ctx => ctx.body = 'get')
+  .get('/', find)
   .post('/', ctx => ctx.body = 'post')
 
 router
   .get('/:id', ctx => ctx.body = ctx.params.id)
+
+async function find (ctx) {
+  const { Thing } = ctx.models
+
+  ctx.body = await Thing.find({})
+}
 
 module.exports = router
