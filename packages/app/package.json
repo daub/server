@@ -16,7 +16,6 @@
     "ava": "^0.22.0",
     "axios": "^0.16.2",
     "get-port": "^3.2.0",
-    "mongomem": "^0.1.9",
     "standard": "^10.0.3"
   },
   "dependencies": {
