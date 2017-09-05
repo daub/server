@@ -1,0 +1,35 @@
+{
+  "name": "@daub/app-router-things",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "keywords": [
+    "server",
+    "api",
+    "router",
+    "things"
+  ],
+  "scripts": {
+    "test": "ava -s --fail-fast",
+    "lint": "standard",
+    "prepublishOnly": "npm test && npm run lint"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@daub/db": "^0.0.1",
+    "ava": "^0.22.0",
+    "axios": "^0.16.2",
+    "get-port": "^3.2.0",
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "standard": "^10.0.3",
+    "mongomem": "^0.1.9"
+  },
+  "dependencies": {
+    "koa-router": "^7.2.1"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.spec.js"
+    ]
+  }
+}
