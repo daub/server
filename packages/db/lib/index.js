@@ -1,10 +1,42 @@
-const { defaults } = require('lodash/fp')
+const { Mongoose } = require('mongoose')
 
-const mongoose = require('@daub/mongoose')
+const schemas = require('./schemas')
 
-const config = defaults({ useMongoClient: true })
+const {
+  keys,
+  assign
+} = Object
 
-module.exports.connect = (url, options) =>
-  mongoose.connect(url, config(options))
+class Db {
+  constructor () {
+    const mongoose = new Mongoose()
 
-module.exports.models = require('./models')
+    keys(schemas).forEach(name => {
+      mongoose.model(name, schemas[name])
+    })
+
+    this.mongoose = assign(mongoose, { Promise })
+  }
+  get models () {
+    return this.mongoose.models
+  }
+  get connection () {
+    return this.mongoose.connection
+  }
+  connect (url) {
+    const options = {
+      useMongoClient: true,
+      promiseLibrary: Promise
+    }
+    return this.mongoose
+      .connect(url, options)
+      .then(() => this)
+  }
+  disconnect () {
+    return this.mongoose
+      .disconnect()
+      .then(() => this)
+  }
+}
+
+module.exports = Db

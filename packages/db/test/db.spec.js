@@ -2,30 +2,28 @@ import test from 'ava'
 
 import { MongoDBServer } from 'mongomem'
 
-import {
-  connect
-} from '../lib'
-
-import {
-  Thing
-} from '../lib/models'
+import Db from '../lib'
 
 test.before(t => MongoDBServer.start())
 test.after.always(t => MongoDBServer.tearDown())
 
+test('init', t => {
+  const db = new Db()
+
+  t.true(db instanceof Db)
+  t.is(typeof db.models, 'object')
+})
+
 test('connect', async t => {
   const url = await MongoDBServer.getConnectionString()
 
-  await connect(url)
+  const db = new Db()
 
-  t.pass()
-})
+  await db.connect(url)
 
-test('models', async t => {
-  await Thing
-    .create({ name: 'exo' })
+  t.is(db.connection.readyState, 1)
 
-  await Thing
-    .findOne({})
-    .then(doc => t.is(doc.name, 'exo'))
+  await db.disconnect()
+
+  t.is(db.connection.readyState, 0)
 })
