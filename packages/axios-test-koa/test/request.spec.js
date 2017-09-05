@@ -32,23 +32,31 @@ test('methods', async t => {
 })
 
 test('defaults', async t => {
-  await request
-    .get('/private')
-    .catch(err => t.is(err.response.status, 401))
+  await t.throws(request.get('/private'))
 
-  await request
-    .get('/private', {
-      headers: { 'Token': 'xxx' }
-    })
-    .then(res => t.is(res.data, 'get'))
+  const config = { headers: { 'Token': 'x' } }
+  await t.notThrows(request.get('/private', config))
 
-  request.defaults.headers.get['Token'] = 'xxx'
+  request.defaults.headers.get['Token'] = 'x'
 
-  await request
-    .get('/private')
-    .then(res => t.is(res.data, 'get'))
+  await t.notThrows(request.get('/private'))
+})
+
+test('interceptors', async t => {
+  await t.throws(request.post('/private'))
+
+  request.interceptors.request.use((config) => {
+    config.headers.post['Token'] = 'x'
+    return config
+  })
+
+  request.interceptors.response.use((response) => {
+    const { data } = response
+    response.data = data.toUpperCase()
+    return response
+  })
 
   await request
     .post('/private')
-    .catch(err => t.is(err.response.status, 401))
+    .then(res => t.is(res.data, 'POST'))
 })

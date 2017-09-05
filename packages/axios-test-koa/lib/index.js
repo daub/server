@@ -18,6 +18,9 @@ class Request {
   get defaults () {
     return this.axios.defaults
   }
+  get interceptors () {
+    return this.axios.interceptors
+  }
   get baseURL () {
     if (!this.server)
       throw new Error('No server listening')
