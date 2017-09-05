@@ -23,8 +23,7 @@ class Request {
     return this.axios.interceptors
   }
   get baseURL () {
-    if (!this.server)
-      throw NoServerError()
+    if (!this.server) throw NoServerError()
 
     const { port } = this.server.address()
     return `http://localhost:${port}`

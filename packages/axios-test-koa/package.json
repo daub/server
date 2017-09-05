@@ -1,20 +1,21 @@
 {
-  "name": "@daub/axios-test-koa",
+  "name": "axios-server",
   "version": "0.0.1",
   "main": "lib/index.js",
-  "description": "Test Koa apps with Axios",
+  "description": "Test http apps with Axios",
   "keywords": [
-    "test",
-    "koa",
     "axios",
-    "request"
+    "request",
+    "server",
+    "http",
+    "test"
   ],
   "scripts": {
     "test": "ava -s --fail-fast",
-    "lint": "standard",
+    "lint": "standard --fix",
     "prepublishOnly": "npm test && npm run lint"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
   "devDependencies": {
     "ava": "^0.22.0",
     "koa": "^2.3.0",
