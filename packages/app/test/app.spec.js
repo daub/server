@@ -1,14 +1,26 @@
 import test from 'ava'
 
-import supertest from 'supertest'
+import axios from 'axios'
+import { MongoDBServer } from 'mongomem'
+import getPort from 'get-port'
 
 import app from '../lib'
 
 let request
 
 test.before(async t => {
-  const server = app.listen(3000)
-  request = supertest(server)
+  // connect db
+  await MongoDBServer.start()
+  await MongoDBServer
+    .getConnectionString()
+    .then(url => app.db.connect(url))
+
+  const port = await getPort()
+  const server = app.listen(port)
+
+  request = axios.create({
+    baseUrl: `http://localhost:${port}`
+  })
 })
 
 test('bodyparser', async t => {
