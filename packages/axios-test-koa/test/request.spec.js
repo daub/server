@@ -7,7 +7,9 @@ import Koa from 'koa'
 const app = new Koa()
 
 app.use((ctx, next) => {
-  if (!ctx.request.headers['x-block']) return next()
+  if (ctx.path !== '/private') return next()
+
+  if (ctx.request.headers['token']) return next()
 
   ctx.throw(401)
 })
@@ -30,9 +32,23 @@ test('methods', async t => {
 })
 
 test('defaults', async t => {
-  request.defaults.headers.common['X-Block'] = 'Always'
+  await request
+    .get('/private')
+    .catch(err => t.is(err.response.status, 401))
 
   await request
-    .get('/')
+    .get('/private', {
+      headers: { 'Token': 'xxx' }
+    })
+    .then(res => t.is(res.data, 'get'))
+
+  request.defaults.headers.get['Token'] = 'xxx'
+
+  await request
+    .get('/private')
+    .then(res => t.is(res.data, 'get'))
+
+  await request
+    .post('/private')
     .catch(err => t.is(err.response.status, 401))
 })
