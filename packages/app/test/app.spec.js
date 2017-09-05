@@ -25,10 +25,17 @@ test('bodyparser', async t => {
   t.deepEqual(res.body, data)
 })
 
+test('ctx.models', async t => {
+  use(t, ctx => {
+    t.truthy(ctx.models)
+  })
+
+  await request.get(`/${t.title}`)
+})
+
 function use (t, fn) {
   return app.use((ctx, next) => {
     if (ctx.path !== `/${t.title}`) return next()
     return fn(ctx, next)
   })
 }
-

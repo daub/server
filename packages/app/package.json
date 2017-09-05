@@ -19,7 +19,8 @@
   },
   "dependencies": {
     "koa": "^2.3.0",
-    "koa-bodyparser": "^4.2.0"
+    "koa-bodyparser": "^4.2.0",
+    "@daub/db": "^0.0.1"
   },
   "ava": {
     "files": [
