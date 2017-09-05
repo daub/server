@@ -4,10 +4,6 @@ import supertest from 'supertest'
 
 import app from '../lib'
 
-app.use(ctx => {
-  ctx.body = 'exo'
-})
-
 let request
 
 test.before(async t => {
@@ -15,8 +11,16 @@ test.before(async t => {
   request = supertest(server)
 })
 
-test('init', async t => {
-  const res = await request.get('/')
+test('body parser', async t => {
+  const data = { name: 'exo' }
 
-  t.is(res.text, 'exo')
+  app.use(async ctx => {
+    ctx.body = ctx.request.body
+  })
+
+  const res = await request
+    .post('/')
+    .send(data)
+
+  t.deepEqual(res.body, data)
 })
