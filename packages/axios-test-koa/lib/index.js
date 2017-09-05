@@ -3,11 +3,12 @@ const Axios = require('axios')
 const getPort = require('get-port')
 
 class Request {
-  constructor (app) {
-    this.app = app
+  constructor (handler) {
+    this.handler = handler
     this.axios = Axios.create()
 
-    this.load = createServer(app)
+    // TODO: make lazy
+    this.load = createServer(handler)
       .then(server => {
         this.server = server
         this.defaults.baseURL = this.baseURL
@@ -53,9 +54,9 @@ class Request {
   }
 }
 
-async function createServer (app) {
+async function createServer (handler) {
   const port = await getPort()
-  const server = http.createServer(app.callback())
+  const server = http.createServer(handler)
 
   const start = (resolve, reject) => {
     server

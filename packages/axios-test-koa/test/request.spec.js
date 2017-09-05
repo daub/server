@@ -19,7 +19,7 @@ app.use(ctx => {
   ctx.body = method.toLowerCase()
 })
 
-const request = new Request(app)
+const request = new Request(app.callback())
 
 test('methods', async t => {
   await request
