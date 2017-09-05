@@ -7,17 +7,18 @@ const db = require('@daub/db')
 
 function Request (router) {
   const app = new Koa()
-  app.models = db.models
+  app.context.models = db.models
   app.use(bodyParser())
   app.use(router.routes())
 
   return new Axios(app.callback())
 }
 
-async function loadDb () {
+module.exports = Request
+
+module.exports.loadDb = async function (){
   await MongoDBServer.start()
   const url = await MongoDBServer.getConnectionString()
-  await db.connect(url)
+  return db.connect(url)
 }
 
-module.exports = Request

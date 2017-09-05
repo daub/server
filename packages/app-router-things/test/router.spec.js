@@ -6,6 +6,8 @@ import router from '../lib'
 
 const request = Request(router)
 
+test.before(Request.loadDb)
+
 test('/things', async t => {
   await request
     .get('/things')
