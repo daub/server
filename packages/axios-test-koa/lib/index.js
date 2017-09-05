@@ -23,16 +23,40 @@ class Request {
   }
   get baseURL () {
     if (!this.server)
-      throw new Error('No server listening')
+      throw NoServerError()
 
     const { port } = this.server.address()
     return `http://localhost:${port}`
+  }
+  tearDown () {
+    const { load, server } = this
+
+    const stop = () => {
+      const callback = (resolve, reject) => {
+        this.load = void 0
+        this.server = void 0
+
+        server.close((err) => {
+          return err
+            ? reject(NoServerError())
+            : resolve()
+        })
+      }
+      return new Promise(callback)
+    }
+
+    if (!load) return Promise.reject(NoServerError())
+
+    return server
+      ? stop()
+      : load.then(stop)
   }
 }
 
 async function createServer (app) {
   const port = await getPort()
   const server = http.createServer(app.callback())
+
   const start = (resolve, reject) => {
     server
       .on('listening', () => resolve(server))
@@ -56,9 +80,16 @@ const methods = [
 methods.forEach(name => {
   Request.prototype[name] = function (...args) {
     const { load, axios } = this
+
+    if (!load) return Promise.reject(NoServerError())
+
     const call = args => () => axios[name](...args)
     return load.then(call(args))
   }
 })
+
+function NoServerError () {
+  return new Error('No server listening')
+}
 
 module.exports = Request

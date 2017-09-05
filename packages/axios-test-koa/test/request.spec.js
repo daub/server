@@ -60,3 +60,10 @@ test('interceptors', async t => {
     .post('/private')
     .then(res => t.is(res.data, 'POST'))
 })
+
+test('tearDown', async t => {
+  await t.notThrows(request.tearDown())
+  await t.throws(request.tearDown())
+
+  await t.throws(request.get('/'))
+})
