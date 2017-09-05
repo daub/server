@@ -18,7 +18,7 @@
     "standard": "^10.0.3"
   },
   "dependencies": {
-    "@daub/mongoose": "^0.0.1",
+    "mongoose": "^4.11.10",
     "mongomem": "^0.1.9"
   },
   "ava": {

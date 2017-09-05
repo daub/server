@@ -1,6 +1,8 @@
 const { MongoDBServer } = require('mongomem')
 
-const mongoose = require('@daub/mongoose')
+const mongoose = require('mongoose')
+
+mongoose.Promise = Promise
 
 module.exports = mongoose
 
