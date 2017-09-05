@@ -7,8 +7,8 @@ const {
   assign
 } = Object
 
-class Db {
-  constructor () {
+class Database {
+  constructor (schemas) {
     const mongoose = new Mongoose()
 
     keys(schemas).forEach(name => {
@@ -39,4 +39,5 @@ class Db {
   }
 }
 
-module.exports = Db
+module.exports = new Database(schemas)
+module.exports.Database = Database
