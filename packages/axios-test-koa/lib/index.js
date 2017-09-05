@@ -2,23 +2,41 @@ const http = require('http')
 const Axios = require('axios')
 const getPort = require('get-port')
 
-function Request (app) {
-  if (!(this instanceof Request)) return new Request(app)
+class Request {
+  constructor (app) {
+    this.app = app
+    this.axios = Axios.create()
 
-  this.app = app
+    this.load = createServer(app)
+      .then(server => {
+        this.server = server
+        this.defaults.baseURL = this.baseURL
+      })
 
-  this.loadAxios = loadApp(app)
+    return this
+  }
+  get defaults () {
+    return this.axios.defaults
+  }
+  get baseURL () {
+    if (!this.server)
+      throw new Error('No server listening')
 
-  return this
+    const { port } = this.server.address()
+    return `http://localhost:${port}`
+  }
 }
 
-async function loadApp (app) {
+async function createServer (app) {
   const port = await getPort()
-  const server = http
-    .createServer(app.callback())
-    .listen(port)
-  const baseURL = `http://localhost:${port}`
-  return Axios.create({ baseURL })
+  const server = http.createServer(app.callback())
+  const start = (resolve, reject) => {
+    server
+      .on('listening', () => resolve(server))
+      .on('error', reject)
+      .listen(port)
+  }
+  return new Promise(start)
 }
 
 const methods = [
@@ -33,9 +51,10 @@ const methods = [
 ]
 
 methods.forEach(name => {
-  const call = args => axios => axios[name](...args)
   Request.prototype[name] = function (...args) {
-    return this.loadAxios.then(call(args))
+    const { load, axios } = this
+    const call = args => () => axios[name](...args)
+    return load.then(call(args))
   }
 })
 
