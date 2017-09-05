@@ -6,6 +6,10 @@ import getPort from 'get-port'
 
 import app from '../lib'
 
+// dirty for reasons
+use('/body-parser', ctx => ctx.body = ctx.request.body)
+use('/ctx-models', ctx => ctx.body = !!ctx.models)
+
 let request
 
 test.before(async t => {
@@ -19,35 +23,29 @@ test.before(async t => {
   const server = app.listen(port)
 
   request = axios.create({
-    baseUrl: `http://localhost:${port}`
+    baseURL: `http://127.0.0.1:${port}`
   })
 })
 
-test('bodyparser', async t => {
-  const data = { name: 'exo' }
+test('body parser', async t => {
+  const body = { name: 'exo' }
 
-  use(t, ctx => {
-    ctx.body = ctx.request.body
-  })
+  const { data } = await request
+    .post('/body-parser', body)
 
-  const res = await request
-    .post('/bodyparser')
-    .send(data)
-
-  t.deepEqual(res.body, data)
+  t.deepEqual(data, body)
 })
 
-test('ctx.models', async t => {
-  use(t, ctx => {
-    t.truthy(ctx.models)
-  })
+test('ctx models', async t => {
+  const { data } = await request
+    .get('/ctx-models')
 
-  await request.get(`/${t.title}`)
+  t.true(data)
 })
 
-function use (t, fn) {
+function use (path, fn) {
   return app.use((ctx, next) => {
-    if (ctx.path !== `/${t.title}`) return next()
+    if (ctx.path !== path) return next()
     return fn(ctx, next)
   })
 }
