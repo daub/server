@@ -1,6 +1,6 @@
 const app = require('./app')
 
-const db = require ('@daub/db')
+const db = require('@daub/db')
 
 const thingsRouter = require('@daub/app-router-things')
 
