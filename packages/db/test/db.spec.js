@@ -2,22 +2,18 @@ import test from 'ava'
 
 import { MongoDBServer } from 'mongomem'
 
-import Db from '../lib'
+import db from '../lib'
 
 test.before(t => MongoDBServer.start())
 test.after.always(t => MongoDBServer.tearDown())
 
 test('init', t => {
-  const db = new Db()
-
-  t.true(db instanceof Db)
+  t.true(db instanceof db.Database)
   t.is(typeof db.models, 'object')
 })
 
 test('connect', async t => {
   const url = await MongoDBServer.getConnectionString()
-
-  const db = new Db()
 
   await db.connect(url)
 
