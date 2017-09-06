@@ -6,6 +6,11 @@ const api = require('./api')
 
 const app = new Koa()
 
+app.use((ctx, next) => {
+  ctx.assert(ctx.models, 501)
+  return next()
+})
+
 app.use(bodyParser())
 
 app.use(api)
