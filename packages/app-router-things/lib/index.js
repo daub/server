@@ -4,6 +4,7 @@ const {
   create,
   read,
   update,
+  findById,
   findAll,
   removeById
 } = require('./controller')
@@ -17,10 +18,11 @@ router
   .post('/', create)
 
 router
+  .use('/:id', findById)
+
+router
   .get('/:id', read)
   .put('/:id', update)
   .delete('/:id', removeById)
-
-
 
 module.exports = router

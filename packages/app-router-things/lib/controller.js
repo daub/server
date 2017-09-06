@@ -10,23 +10,22 @@ async function create (ctx) {
 }
 
 async function read (ctx) {
-  const { Thing } = ctx.models
-  const { id } = ctx.params
+  const { thing } = ctx.state
 
-  const doc = await Thing.findById(id)
+  ctx.assert(thing, 404)
 
-  ctx.body = doc
+  ctx.body = thing
 }
 
 async function update (ctx) {
-  const { Thing } = ctx.models
-  const { id } = ctx.params
+  const { thing } = ctx.state
   const { body } = ctx.request
 
-  const doc = await Thing.findById(id)
+  ctx.assert(thing, 404)
 
-  doc.set(body)
-  await doc.save()
+  await thing
+    .set(body)
+    .save()
 
   ctx.status = 204
   ctx.body = null
@@ -48,10 +47,24 @@ async function findAll (ctx) {
   ctx.body = await Thing.find({})
 }
 
+async function findById (ctx, next) {
+  const { Thing } = ctx.models
+  const { id } = ctx.params
+
+  const thing = await Thing.findById(id)
+
+  if (!thing) return ctx.throw(404)
+
+  ctx.state.thing = thing
+
+  return next()
+}
+
 module.exports = {
   create,
   read,
   update,
   findAll,
-  removeById
+  removeById,
+  findById
 }

@@ -47,6 +47,13 @@ test('CRUD', async t => {
     .then(res => {
       t.is(res.status, 204)
     })
+
+  await request
+    .get(url)
+    .then(res => t.fail())
+    .catch(err => {
+      t.is(err.response.status, 404)
+    })
 })
 
 test('List', async t => {
