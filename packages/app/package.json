@@ -16,11 +16,11 @@
     "ava": "^0.22.0",
     "axios-serve": "^1.1.2",
     "mongomem": "^0.1.9",
-    "standard": "^10.0.3"
+    "standard": "^10.0.3",
+    "@daub/db": "^0.0.1"
   },
   "dependencies": {
     "@daub/app-router-things": "^0.0.1",
-    "@daub/db": "^0.0.1",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.2.1"
