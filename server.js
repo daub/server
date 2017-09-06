@@ -1,3 +1,5 @@
+const http = require('http')
+
 const config = require('config')
 
 const db = require('./packages/db')
@@ -8,4 +10,9 @@ app.context.config = config.get('app')
 
 db.connect(config.get('db.url'))
 
-app.listen(config.get('app.port'))
+const server = http.createServer(app.callback())
+
+const port = config.get('app.port')
+server.listen(port, (err) => {
+  console.log(`Server listening to port ${port}`)
+})
