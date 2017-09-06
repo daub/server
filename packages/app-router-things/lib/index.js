@@ -4,9 +4,9 @@ const {
   create,
   read,
   update,
+  destroy,
   findById,
-  findAll,
-  removeById
+  findAll
 } = require('./controller')
 
 const router = new Router({
@@ -19,10 +19,8 @@ router
 
 router
   .use('/:id', findById)
-
-router
   .get('/:id', read)
   .put('/:id', update)
-  .delete('/:id', removeById)
+  .delete('/:id', destroy)
 
 module.exports = router

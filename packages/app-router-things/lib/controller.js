@@ -31,11 +31,12 @@ async function update (ctx) {
   ctx.body = null
 }
 
-async function removeById (ctx) {
-  const { Thing } = ctx.models
-  const { id } = ctx.params
+async function destroy (ctx) {
+  const { thing } = ctx.state
 
-  const doc = await Thing.findByIdAndRemove(id)
+  ctx.assert(thing, 404)
+
+  await thing.destroy()
 
   ctx.status = 204
   ctx.body = null
@@ -64,7 +65,7 @@ module.exports = {
   create,
   read,
   update,
+  destroy,
   findAll,
-  removeById,
   findById
 }
