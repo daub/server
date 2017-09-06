@@ -3,6 +3,8 @@ import test from 'ava'
 import Axios from 'axios'
 import getPort from 'get-port'
 
+import { MongoDBServer } from 'mongomem'
+
 import app from '../lib'
 
 const Request = async (app) => {
@@ -11,6 +13,12 @@ const Request = async (app) => {
   const baseURL = `http://127.0.0.1:${port}/`
   return Axios.create({ baseURL })
 }
+
+test.before(async () => {
+  await MongoDBServer.start()
+  const url = await MongoDBServer.getConnectionString()
+  await app.db.connect(url)
+})
 
 test('ctx.request.body', async t => {
   const body = { name: 'exo' }
@@ -36,4 +44,12 @@ test('ctx.models', async t => {
   const { data } = await request.get(t.title)
 
   t.true(data)
+})
+
+test('/things', async t => {
+  const request = await Request(app)
+
+  await request
+    .get('/things')
+    .then(res => t.pass())
 })

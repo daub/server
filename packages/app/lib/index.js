@@ -2,7 +2,7 @@ const app = require('./app')
 
 const db = require ('@daub/db')
 
-const thingsRouter = require('./router/things')
+const thingsRouter = require('@daub/app-router-things')
 
 app.context.models = db.models
 
