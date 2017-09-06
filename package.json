@@ -1,8 +1,14 @@
 {
-	"devDependencies": {
-		"lerna": "^2.1.0"
-	},
-	"dependencies": {
-		"config": "^1.26.2"
-	}
+  "name": "@daub/daub",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "lerna run test",
+    "lint": "lerna run lint"
+  },
+  "devDependencies": {
+    "lerna": "^2.1.0"
+  },
+  "dependencies": {
+    "config": "^1.26.2"
+  }
 }
