@@ -4,7 +4,7 @@ const db = require('./packages/db')
 const app = require('./packages/app')
 
 app.context.models = db.models
-app.context.config = config
+app.context.config = config.get('app')
 
 db.connect(config.get('db.url'))
 
