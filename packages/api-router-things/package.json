@@ -1,5 +1,5 @@
 {
-  "name": "@daub/app-router-things",
+  "name": "@daub/api-router-things",
   "version": "0.0.1",
   "main": "lib/index.js",
   "keywords": [

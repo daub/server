@@ -1,5 +1,5 @@
 {
-  "name": "@daub/app",
+  "name": "@daub/api",
   "version": "0.0.1",
   "main": "lib/index.js",
   "keywords": [
@@ -20,7 +20,7 @@
     "@daub/db": "^0.0.1"
   },
   "dependencies": {
-    "@daub/app-router-things": "^0.0.1",
+    "@daub/api-router-things": "^0.0.1",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.2.1"
