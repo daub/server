@@ -17,6 +17,7 @@
   "devDependencies": {
     "@daub/test-router-axios": "^0.0.1",
     "ava": "^0.22.0",
+    "lodash": "^4.17.4",
     "standard": "^10.0.3"
   },
   "dependencies": {
