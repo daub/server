@@ -15,14 +15,14 @@
   "devDependencies": {
     "ava": "^0.22.0",
     "axios-serve": "^1.1.2",
-    "mongomem": "^0.1.9",
-    "standard": "^10.0.3",
-    "@daub/db": "^0.0.1"
+    "standard": "^10.0.3"
   },
   "dependencies": {
     "@daub/api-router-things": "^0.0.1",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
+    "koa-compose": "^4.0.0",
+    "koa-logger": "^3.0.1",
     "koa-router": "^7.2.1"
   },
   "ava": {

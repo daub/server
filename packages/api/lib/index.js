@@ -1,13 +1,23 @@
 const Koa = require('koa')
 
 const bodyParser = require('koa-bodyparser')
+const logger = require('koa-logger')
 
-const thingsRouter = require('@daub/api-router-things')
+const api = require('./api')
 
 const app = new Koa()
 
+if (app.env === 'development') {
+  app.use(logger())
+}
+
+app.use((ctx, next) => {
+  ctx.assert(ctx.models, 501)
+  return next()
+})
+
 app.use(bodyParser())
 
-app.use(thingsRouter.routes())
+app.use(api)
 
 module.exports = app
