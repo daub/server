@@ -1,8 +1,11 @@
+const config = require('config')
+
 const db = require('./packages/db')
 const app = require('./packages/app')
 
 app.context.models = db.models
+app.context.config = config
 
-db.connect('mongodb://localhost/app')
+db.connect(config.get('db.url'))
 
-app.listen(3000)
+app.listen(config.get('app.port'))

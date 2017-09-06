@@ -1,0 +1,8 @@
+{
+  "app": {
+    "port": "NODE_API_PORT"
+  },
+  "db": {
+    "url": "MONGODB_URL"
+  }
+}
