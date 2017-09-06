@@ -2,8 +2,9 @@ const Router = require('koa-router')
 
 const {
   create,
+  read,
+  update,
   findAll,
-  findOne,
   removeById
 } = require('./controller')
 
@@ -16,7 +17,10 @@ router
   .post('/', create)
 
 router
-  .get('/:id', findOne)
+  .get('/:id', read)
+  .put('/:id', update)
   .delete('/:id', removeById)
+
+
 
 module.exports = router

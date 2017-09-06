@@ -12,41 +12,47 @@ const request = Request(router)
 
 test.before(Request.loadDb)
 
-test('Create and read', async t => {
-  const body = { name: 'Exo' }
+const exo = { name: 'Exo' }
+const hopar = { name: 'Hopar' }
 
-  const location = await request
-    .post('/things', body)
-    .then(res => res.headers.location)
-
-  t.regex(location, /^\/things\/[a-f\d]{24}$/i)
-
-  const data = await request
-    .get(location)
-    .then(res => res.data)
-
-  t.true(isMatch(data, body))
-})
-
-test('List and remove', async t => {
-  const [{ _id: id }] = await request
-    .get('/things')
+test('CRUD', async t => {
+  const url = await request
+    .post('/things', exo)
     .then(res => {
-      const { data } = res
-
-      t.is(data.length, 1)
-      return data
+      const { location } = res.headers
+      t.regex(location, /^\/things\/[a-f\d]{24}$/i)
+      return location
     })
 
   await request
-    .delete(`/things/${id}`)
+    .get(url)
+    .then(res => {
+      t.true(isMatch(res.data, exo))
+    })
+
+  await request
+    .put(url, hopar)
     .then(res => {
       t.is(res.status, 204)
     })
 
   await request
+    .get(url)
+    .then(res => {
+      t.true(isMatch(res.data, hopar))
+    })
+
+  await request
+    .delete(url)
+    .then(res => {
+      t.is(res.status, 204)
+    })
+})
+
+test('List', async t => {
+  await request
     .get('/things')
     .then(res => {
-      t.is(res.data.length, 0)
+      t.deepEqual(res.data, [])
     })
 })
