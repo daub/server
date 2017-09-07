@@ -22,9 +22,8 @@
   },
   "dependencies": {
     "@daub/db": "^0.0.1",
+    "@daub/api": "^0.0.1",
     "axios-serve": "^1.1.0",
-    "koa": "^2.3.0",
-    "koa-bodyparser": "^4.2.0",
     "mongomem": "^0.1.9"
   },
   "ava": {
