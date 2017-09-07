@@ -6,7 +6,9 @@ import Request from '../lib'
 
 const router = new Router()
 
-router.get('/exo', ctx => ctx.body = 'exo')
+router.get('/exo', ctx => {
+  ctx.body = 'exo'
+})
 
 const request = Request(router)
 
