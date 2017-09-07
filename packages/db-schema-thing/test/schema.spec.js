@@ -25,7 +25,10 @@ test('Validation: name', async t => {
 })
 
 test('Validation: url', async t => {
-  const p = Thing.create({ url: '/hopar' })
+  const p = Thing.create({
+    name: 'exo',
+    url: 'hopar'
+  })
   const err = await t.throws(p)
   t.truthy(err.errors.url)
 })

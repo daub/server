@@ -1,4 +1,4 @@
-const { URL } = require('url')
+const URL = require('./url')
 
 module.exports.name = {
   type: String,
@@ -6,17 +6,7 @@ module.exports.name = {
 }
 
 module.exports.url = {
-  type: String,
-  validate: {
-    validator (v) {
-      try {
-        v = new URL(v)
-      } catch (err) {
-        return false
-      }
-    },
-    reason: 'invalid'
-  }
+  type: URL
 }
 
 module.exports.alternateName = String
