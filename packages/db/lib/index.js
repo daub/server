@@ -1,6 +1,9 @@
+const types = require('@daub/db-types')
+
 const Database = require('./db')
+
 const schemas = require('./schemas')
 
+module.exports = new Database(schemas, types)
 
-module.exports = new Database(schemas)
 module.exports.Database = Database

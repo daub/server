@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@daub/db-schema-thing": "^0.0.1",
+    "@daub/db-types": "^0.0.1",
     "mongoose": "^4.11.10"
   },
   "ava": {
