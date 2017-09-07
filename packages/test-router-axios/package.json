@@ -10,8 +10,9 @@
   ],
   "scripts": {
     "test": "ava -s --fail-fast",
-    "lint": "standard",
-    "prepublishOnly": "npm test && npm run lint"
+    "lint": "standard --fix",
+    "qualify": "npm test && npm run lint",
+    "prepublishOnly": "npm run qualify"
   },
   "license": "UNLICENSED",
   "devDependencies": {

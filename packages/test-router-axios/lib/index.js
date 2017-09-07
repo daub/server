@@ -16,9 +16,8 @@ function Request (router) {
 
 module.exports = Request
 
-module.exports.loadDb = async function (){
+module.exports.loadDb = async function () {
   await MongoDBServer.start()
   const url = await MongoDBServer.getConnectionString()
   return db.connect(url)
 }
-
