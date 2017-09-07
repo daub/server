@@ -4,12 +4,22 @@
   "main": "lib/index.js",
   "keywords": [
     "mongoose",
+    "schema",
     "type",
     "url"
   ],
   "license": "UNLICENSED",
+  "scripts": {
+    "test": "ava -s --fail-fast",
+    "lint": "standard --fix",
+    "qualify": "npm test && npm run lint",
+    "prepublishOnly": "npm run qualify"
+  },
+  "devDependencies": {
+    "ava": "^0.22.0",
+    "standard": "^10.0.3"
+  },
   "dependencies": {
-    "@daub/mongoose-type-url": "^0.0.1",
     "mongoose": "^4.11.10"
   }
 }
