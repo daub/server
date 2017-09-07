@@ -1,0 +1,14 @@
+{
+  "name": "@daub/db-types",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "keywords": [
+    "mongoose",
+    "type",
+    "url"
+  ],
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@daub/mongoose-type-url": "^0.0.1"
+  }
+}

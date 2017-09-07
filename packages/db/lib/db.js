@@ -6,12 +6,14 @@ const {
 } = Object
 
 class Database {
-  constructor (schemas) {
+  constructor (schemas, types) {
     const mongoose = new Mongoose()
 
     keys(schemas).forEach(name => {
       mongoose.model(name, schemas[name])
     })
+
+    assign(mongoose.Schema.Types, types)
 
     this.mongoose = assign(mongoose, { Promise })
   }
