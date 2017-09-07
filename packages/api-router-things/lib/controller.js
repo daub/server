@@ -12,16 +12,12 @@ async function create (ctx) {
 async function read (ctx) {
   const { thing } = ctx.state
 
-  ctx.assert(thing, 404)
-
   ctx.body = thing
 }
 
 async function update (ctx) {
   const { thing } = ctx.state
   const { body } = ctx.request
-
-  ctx.assert(thing, 404)
 
   await thing
     .set(body)
@@ -33,8 +29,6 @@ async function update (ctx) {
 
 async function destroy (ctx) {
   const { thing } = ctx.state
-
-  ctx.assert(thing, 404)
 
   await thing.destroy()
 
@@ -54,7 +48,7 @@ async function findById (ctx, next) {
 
   const thing = await Thing.findById(id)
 
-  if (!thing) return ctx.throw(404)
+  if (!thing) throw new Error('Not Found')
 
   ctx.state.thing = thing
 

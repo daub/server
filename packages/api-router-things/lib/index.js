@@ -9,9 +9,13 @@ const {
   findAll
 } = require('./controller')
 
+const errorHandler = require('./error-handler')
+
 const router = new Router({
   prefix: '/things'
 })
+
+router.use(errorHandler)
 
 router
   .get('/', findAll)
