@@ -2,11 +2,16 @@ async function create (ctx) {
   const { Thing } = ctx.models
   const { body } = ctx.request
 
-  const doc = await Thing.create(body)
-  const location = `/things/${doc._id}`
+  try {
+    const doc = await Thing.create(body)
+    const location = `/things/${doc._id}`
 
-  ctx.set({ location })
-  ctx.body = null
+    ctx.set({ location })
+    ctx.body = null
+  } catch (err) {
+    ctx.status = 422
+    ctx.body = err.errors
+  }
 }
 
 async function read (ctx) {
@@ -23,12 +28,18 @@ async function update (ctx) {
 
   ctx.assert(thing, 404)
 
-  await thing
-    .set(body)
-    .save()
+  try {
+    await thing
+      .set(body)
+      .save()
 
-  ctx.status = 204
-  ctx.body = null
+    ctx.status = 204
+    ctx.body = null
+  } catch (err) {
+    ctx.status = 422
+    ctx.body = err.errors
+  }
+
 }
 
 async function destroy (ctx) {

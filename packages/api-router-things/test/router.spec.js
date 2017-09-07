@@ -56,6 +56,39 @@ test('CRUD', async t => {
     })
 })
 
+test('Validation', async t => {
+  const validBody = {
+    name: 'exo',
+    url: 'http://freenet.am'
+  }
+  const noName = { description: 'hopar' }
+  const invalidURL = { url: 'hopar' }
+
+  const checkErrors = (...props) => err => {
+    const { status, data } = err.response
+
+    t.is(status, 422)
+
+    props.forEach(prop => t.truthy(data[prop]))
+  }
+
+  await t.throws(request.post('/things', noName))
+    .then(checkErrors('name'))
+
+  await t.throws(request.post('/things', invalidURL))
+    .then(checkErrors('name', 'url'))
+
+  // not throws
+  const location = await request.post('/things', validBody)
+    .then(res => res.headers.location)
+
+  await t.throws(request.put(location, invalidURL))
+    .then(checkErrors('url'))
+
+  // cleanup
+  await request.delete(location)
+})
+
 test('List', async t => {
   await request
     .get('/things')
