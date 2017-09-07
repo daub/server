@@ -17,9 +17,19 @@ test('Schema', async t => {
   await Thing
     .create({ name: 'exo' })
 
-  await Thing
-    .findOne({})
-    .then(doc => t.is(doc.name, 'exo'))
+  const doc = await Thing.findOne({})
+
+  t.is(doc.name, 'exo')
+
+  t.truthy(doc.id)
+
+  t.truthy(doc.createdAt)
+  t.truthy(doc.updatedAt)
+
+  const ret = doc.toJSON()
+
+  t.falsy(ret._id)
+  t.truthy(ret.id)
 })
 
 test('Validation: name', async t => {
