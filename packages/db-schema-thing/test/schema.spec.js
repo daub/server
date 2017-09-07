@@ -4,6 +4,10 @@ import mongoose from '@daub/test-mongoose'
 
 import thingSchema from '../lib'
 
+import { Types } from '@daub/db-schema'
+
+mongoose.Schema.Types.URL = Types.URL
+
 test.before(mongoose.start)
 test.after.always(mongoose.tearDown)
 

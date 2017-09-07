@@ -1,9 +1,6 @@
-const { Schema } = require('mongoose')
+const Schema = require('@daub/db-schema')
 
 const props = require('./props')
-
-const URL = require('./url')
-Schema.Types.URL = URL
 
 const schema = new Schema(props)
 

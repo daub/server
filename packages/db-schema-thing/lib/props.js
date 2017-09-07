@@ -1,4 +1,4 @@
-const URL = require('./url')
+const { Types } = require('@daub/db-schema')
 
 module.exports.name = {
   type: String,
@@ -6,7 +6,7 @@ module.exports.name = {
 }
 
 module.exports.url = {
-  type: URL
+  type: Types.URL
 }
 
 module.exports.alternateName = String
