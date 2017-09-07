@@ -9,4 +9,17 @@ schema.methods.destroy = function () {
     .findByIdAndRemove(this._id)
 }
 
+schema.virtual('id').get(function(){
+  return this._id.toHexString();
+})
+
+schema.set('timestamps', true)
+
+schema.set('toJSON', {
+  virtuals: true,
+  transform (doc, ret) {
+    delete ret._id
+  }
+})
+
 module.exports = schema
