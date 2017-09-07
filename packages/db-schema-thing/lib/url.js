@@ -6,7 +6,7 @@ const {
 } = require('mongoose')
 
 class URL extends SchemaType {
-  constructor(key, options) {
+  constructor (key, options) {
     super(key, options, 'URL')
   }
   cast (v) {

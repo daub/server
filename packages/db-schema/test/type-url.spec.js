@@ -2,14 +2,10 @@ import test from 'ava'
 
 import mongoose from 'mongoose'
 
-import URL from '../lib'
-
-const { Schema } = mongoose
-
-Schema.Types.URL = URL
+import Schema from '../lib'
 
 const schema = new Schema({
-  url: { type: URL }
+  url: { type: Schema.Types.URL }
 })
 
 const Model = mongoose.model('Link', schema)
