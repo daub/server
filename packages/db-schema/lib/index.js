@@ -2,6 +2,6 @@ const { Schema } = require('mongoose')
 
 const types = require('./types')
 
-Object.assign(Schema.Types, types)
-
 module.exports = Schema
+
+module.exports.Types = Object.assign(Schema.Types, types)
