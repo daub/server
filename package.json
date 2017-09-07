@@ -2,7 +2,7 @@
   "name": "@daub/server",
   "version": "0.0.1",
   "scripts": {
-    "test": "lerna run test",
+    "test": "lerna bootstrap && lerna run test",
     "lint": "lerna run lint",
     "dev": "nodemon server.js"
   },
