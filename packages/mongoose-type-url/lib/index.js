@@ -22,4 +22,7 @@ class URL extends SchemaType {
   }
 }
 
+// Mimic Mongoose types
+URL.schemaName = 'URL'
+
 module.exports = URL
