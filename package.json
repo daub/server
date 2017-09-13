@@ -11,6 +11,8 @@
     "nodemon": "^1.12.0"
   },
   "dependencies": {
+    "@daub/api": "file:packages/api",
+    "@daub/db": "file:packages/db",
     "config": "^1.26.2"
   }
 }

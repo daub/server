@@ -2,8 +2,8 @@ const http = require('http')
 
 const config = require('config')
 
-const db = require('./packages/db')
-const api = require('./packages/api')
+const db = require('@daub/db')
+const api = require('@daub/api')
 
 api.context.models = db.models
 api.context.config = config.get('app')
