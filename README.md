@@ -11,4 +11,6 @@ npm install
 npm run dev
 ```
 
+## LICENSE
 
+MIT License

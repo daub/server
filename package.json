@@ -14,5 +14,6 @@
     "@daub/api": "file:packages/api",
     "@daub/db": "file:packages/db",
     "config": "^1.26.2"
-  }
+  },
+  "license": "MIT"
 }
