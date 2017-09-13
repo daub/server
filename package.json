@@ -1,6 +1,7 @@
 {
   "name": "@daub/server",
   "version": "0.0.1",
+  "repository": "daub/server",
   "scripts": {
     "test": "lerna bootstrap && lerna run test",
     "lint": "lerna run lint",
