@@ -35,13 +35,21 @@ test.only('Validation: email', async t => {
 
   await t.throws(create())
     .then(err => {
+      // console.log(err.errors.email)
       t.truthy(err.errors.email)
     })
 
   await t.throws(create('exo'))
     .then(err => {
+      // console.log(err.errors.email)
       t.truthy(err.errors.email)
     })
 
-  await t.notThrows(create('exo@exo.com'))
+  await t.notThrows(create('exo@Exo.com'))
+
+  await t.throws(create('EXO@exo.com'))
+    .then(err => {
+      t.truthy(err.errors.email)
+      t.is(err.errors.email.reason, 'unique')
+    })
 })
