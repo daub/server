@@ -49,3 +49,18 @@ test('Validation', async t => {
   //
   await t.notThrows(create('l0ngerPassw'))
 })
+
+test('Compare', async t => {
+  const owner = new ObjectId()
+  const password = 'h0parJan'
+
+  const doc = await Password.create({ owner, password })
+
+  await doc
+    .compare(password)
+    .then(res => t.true(res))
+
+  await doc
+    .compare('hoparjan')
+    .then(res => t.false(res))
+})

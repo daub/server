@@ -23,4 +23,8 @@ schema.pre('save', function (next) {
   })
 })
 
+schema.methods.compare = function (password) {
+  return bcrypt.compare(password, this.password)
+}
+
 module.exports = schema
