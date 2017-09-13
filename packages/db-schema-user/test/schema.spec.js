@@ -27,8 +27,21 @@ test('Schema', async t => {
   t.is(doc.email, 'exo')
 })
 
-test('Validation: email', async t => {
-  const p = User.create({})
-  const err = await t.throws(p)
-  t.truthy(err.errors.email)
+test.only('Validation: email', async t => {
+  const create = email => {
+    const password = 'asdasd11'
+    return User.create({ email, password })
+  }
+
+  await t.throws(create())
+    .then(err => {
+      t.truthy(err.errors.email)
+    })
+
+  await t.throws(create('exo'))
+    .then(err => {
+      t.truthy(err.errors.email)
+    })
+
+  await t.notThrows(create('exo@exo.com'))
 })
