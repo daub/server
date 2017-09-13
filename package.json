@@ -4,7 +4,7 @@
   "scripts": {
     "test": "lerna bootstrap && lerna run test",
     "lint": "lerna run lint",
-    "dev": "nodemon server.js"
+    "dev": "lerna bootstrap && nodemon server.js"
   },
   "devDependencies": {
     "lerna": "^2.1.0",
