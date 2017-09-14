@@ -1,10 +1,17 @@
 import test from 'ava'
 
+import Router from 'koa-router'
+
 import Request from '@daub/test-router-axios'
 
 import router from '../lib'
 
-const request = Request(router)
+const proxy = new Router()
+
+proxy.use(router.routes())
+proxy.use(router.verify())
+
+const request = Request(proxy)
 
 const { User } = request.app.context.models
 
@@ -59,4 +66,9 @@ test('Login', async t => {
       t.true(typeof accessToken === 'string')
       return accessToken
     })
+})
+
+test('Middleware', async t => {
+  await t.throws(request.get('/etc'))
+    .then(checkErrors(t, 401))
 })
