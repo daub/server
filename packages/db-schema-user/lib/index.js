@@ -40,4 +40,21 @@ schema.statics.register = async function (body = {}) {
     .then(() => ({ id }))
 }
 
+schema.statics.login = async function (body={}) {
+  const { email, password } = body
+
+  const User = this
+  const Password = this.model('Password')
+
+  const user = await User
+    .findOne({ email })
+    .populate('password')
+
+  const verified = await user.password.compare(password)
+
+  if (verified) return user
+
+  throw new Error('Not Authorized')
+}
+
 module.exports = schema

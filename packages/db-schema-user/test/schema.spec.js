@@ -45,3 +45,21 @@ test('Register', async t => {
       t.is(email.reason, 'unique')
     })
 })
+
+test('Login', async t => {
+  const login = (email, password) => {
+    return User.login({ email, password })
+  }
+
+  await t.throws(login(okEmail, badPassword))
+
+  await t.throws(login(badEmail, okPassword))
+
+  await t.notThrows(login(okEmail, okPassword))
+
+  await login(okEmail, okPassword)
+    .then(doc => {
+      t.true(doc instanceof User)
+    })
+
+})
