@@ -2,7 +2,8 @@ const Koa = require('koa')
 
 const bodyParser = require('koa-bodyparser')
 const logger = require('koa-logger')
-const jwt = require('koa-jwt')
+
+const authorization = require('./middleware/authorize')
 
 const app = new Koa()
 
@@ -15,16 +16,13 @@ app.use((ctx, next) => {
   return next()
 })
 
-const auth = jwt({
-    secret: 'secret',
-    debug: true
-  })
+const authorize = authorization
   .unless({
     method: 'POST',
     path: ['/users', '/sessions']
   })
 
-app.use(auth)
+app.use(authorize)
 
 app.use(bodyParser())
 
