@@ -15,6 +15,9 @@ const request = Request(router)
 test.before(Request.loadDb)
 
 test('routes', async t => {
+  t.truthy(request.app)
+  t.truthy(request.app.context.models)
+
   await request
     .get('/exo')
     .then(res => t.is(res.data, 'exo'))

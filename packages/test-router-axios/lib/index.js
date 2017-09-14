@@ -9,7 +9,11 @@ function Request (router) {
   app.context.models = db.models
   app.use(router.routes())
 
-  return Axios.createServer(app.callback())
+  const axios = Axios.createServer(app.callback())
+
+  axios.app = app
+
+  return axios
 }
 
 module.exports = Request
