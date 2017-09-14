@@ -50,6 +50,10 @@ schema.statics.login = async function (body={}) {
     .findOne({ email })
     .populate('password')
 
+  // TODO: normal errors
+
+  if (!user) throw new Error('Not Authorized')
+
   const verified = await user.password.compare(password)
 
   if (verified) return user
