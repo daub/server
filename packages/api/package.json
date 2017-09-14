@@ -19,12 +19,13 @@
     "standard": "^10.0.3"
   },
   "dependencies": {
+    "@daub/api-router-sessions": "^0.0.1",
     "@daub/api-router-things": "^0.0.1",
     "@daub/api-router-users": "^0.0.1",
-    "@daub/api-router-sessions": "^0.0.1",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-compose": "^4.0.0",
+    "koa-jwt": "^3.2.2",
     "koa-logger": "^3.0.1",
     "koa-router": "^7.2.1"
   },
