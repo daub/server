@@ -2,10 +2,14 @@ module.exports = async (ctx, next) => {
   try {
     await next()
   } catch (err) {
-    const message = err.message && err.message.toLowerCase()
+    const { name, errors } = err
 
-    console.log(err)
+    if (name === 'ValidationError') {
+      ctx.status = errors.email.reason === 'unique' ? 409 : 422
+    } else {
+      ctx.status = 401
+    }
 
-    ctx.status = 401
+    ctx.body = errors || {}
   }
 }

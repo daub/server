@@ -18,25 +18,36 @@ const invalidPass = { email: 'exo@exo.com', password: 'exo' }
 
 test.before(async t => {
   await Request.loadDb()
-
-  await User.register(validBody)
 })
 
-test('Login:invalid', async t => {
-  const checkErrors = (...props) => err => {
-    const { data } = err.response
-    t.is(err.response.status, 401)
-    props.forEach(prop => t.truthy(data[prop]))
-  }
+const checkErrors = (t, code, ...props) => err => {
+  const { status, data } = err.response
 
+  t.is(status, code)
+
+  const { errors } = data || {}
+
+  props.forEach(prop => t.truthy(data[prop]))
+}
+
+test('Register', async t => {
+  await t.throws(request.post('/auth/register', invalidBody))
+    .then(checkErrors(t, 422, 'email'))
+
+  // not throws
+  await t.notThrows(request.post('/auth/register', validBody))
+
+  await t.throws(request.post('/auth/register', validBody))
+    .then(checkErrors(t, 409, 'email'))
+})
+
+test('Login', async t => {
   await t.throws(request.post('/auth/login', invalidBody))
-    .then(checkErrors())
+    .then(checkErrors(t, 401))
 
   await t.throws(request.post('/auth/login', invalidPass))
-    .then(checkErrors())
-})
+    .then(checkErrors(t, 401))
 
-test('Login:valid', async t => {
   const login = request.post('/auth/login', validBody)
 
   await t.notThrows(login)

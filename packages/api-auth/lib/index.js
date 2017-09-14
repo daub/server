@@ -1,7 +1,8 @@
 const Router = require('koa-router')
 
 const {
-  login
+  login,
+  register
 } = require('./controller')
 
 const errorHandler = require('./error-handler')
@@ -13,5 +14,6 @@ const router = new Router({
 router.use(errorHandler)
 
 router.post('/login', login)
+router.post('/register', register)
 
 module.exports = router

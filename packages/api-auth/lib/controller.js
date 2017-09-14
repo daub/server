@@ -12,6 +12,17 @@ async function login (ctx) {
   ctx.body = { accessToken }
 }
 
+async function register (ctx) {
+  const { User } = ctx.models
+  const { body } = ctx.request
+
+  const doc = await User.register(body)
+
+  ctx.status = 204
+  ctx.body = null
+}
+
 module.exports = {
-  login
+  login,
+  register
 }
