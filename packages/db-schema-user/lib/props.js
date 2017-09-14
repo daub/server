@@ -2,11 +2,11 @@ const { Types } = require('@daub/db-schema')
 
 module.exports.email = {
   type: String,
+  unique: true,
   required: true,
   trim: true,
   lowercase: true,
   match: /\S+@\S+\.\S+/,
-  unique: true,
   validate: {
     async validator (email) {
       const dub = await this.constructor.findOne({ email })
@@ -16,9 +16,4 @@ module.exports.email = {
         : Promise.resolve()
     }
   }
-}
-
-module.exports.password = {
-  type: String,
-  required: true
 }

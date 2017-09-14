@@ -4,52 +4,44 @@ import mongoose from '@daub/test-mongoose'
 
 import userSchema from '../lib'
 
-import { Types } from '@daub/db-schema'
+import passwordSchema from '@daub/db-schema-password'
 
-mongoose.Schema.Types.URL = Types.URL
+import { Types } from '@daub/db-schema'
 
 test.before(mongoose.start)
 test.after.always(mongoose.tearDown)
 
+const Password = mongoose.model('Password', passwordSchema)
 const User = mongoose.model('User', userSchema)
 
-test('Schema', async t => {
-  const body = {
-    password: 'exo',
-    email: 'exo'
+const okEmail = 'exo@hopar.com'
+const okPassword = '0KPassword'
+
+const badEmail = '@exo'
+const badPassword = 'x'
+
+test('Register', async t => {
+  const register = (email, password) => {
+    return User.register({ email, password })
   }
 
-  await User
-    .create(body)
-
-  const doc = await User.findOne({})
-
-  t.is(doc.email, 'exo')
-})
-
-test.only('Validation: email', async t => {
-  const create = email => {
-    const password = 'asdasd11'
-    return User.create({ email, password })
-  }
-
-  await t.throws(create())
+  await t.throws(register(badEmail, okPassword))
     .then(err => {
-      // console.log(err.errors.email)
       t.truthy(err.errors.email)
     })
 
-  await t.throws(create('exo'))
+  await t.throws(register(okEmail, badPassword))
     .then(err => {
-      // console.log(err.errors.email)
-      t.truthy(err.errors.email)
+      t.truthy(err.errors.password)
     })
 
-  await t.notThrows(create('exo@Exo.com'))
+  await t.notThrows(register(okEmail, okPassword))
 
-  await t.throws(create('EXO@exo.com'))
+  await t.throws(register(okEmail, okPassword))
     .then(err => {
-      t.truthy(err.errors.email)
-      t.is(err.errors.email.reason, 'unique')
+      const { email } = err.errors
+
+      t.truthy(email)
+      t.is(email.reason, 'unique')
     })
 })
