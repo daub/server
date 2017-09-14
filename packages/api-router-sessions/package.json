@@ -26,6 +26,7 @@
     "standard": "^10.0.3"
   },
   "dependencies": {
+    "jsonwebtoken": "^8.0.1",
     "koa-router": "^7.2.1"
   },
   "ava": {

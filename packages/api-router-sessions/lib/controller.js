@@ -1,13 +1,18 @@
+const jwt = require('jsonwebtoken')
+
 async function create (ctx) {
   const { User } = ctx.models
   const { body } = ctx.request
 
-  const doc = await User.login(body)
-  const location = `/users/${doc.id}`
+  const { id } = await User.login(body)
+
+  const location = `/users/${id}`
+
+  const accessToken = jwt.sign({ id }, 'secret')
 
   ctx.set({ location })
-  ctx.set({ 'Access-Token': Math.random() })
-  ctx.body = null
+  ctx.status = 202
+  ctx.body = { accessToken }
 }
 
 module.exports = {
