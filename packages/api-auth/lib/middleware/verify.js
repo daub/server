@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken')
 
+const unless = require('koa-unless')
+
 const getToken = str => {
   const err = new Error('No valid token')
 
@@ -28,6 +30,8 @@ function fn (options = {}) {
       ctx.status = 401
     }
   }
+
+  verify.unless = unless
 
   return verify
 }

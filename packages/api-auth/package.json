@@ -27,7 +27,8 @@
   },
   "dependencies": {
     "jsonwebtoken": "^8.0.1",
-    "koa-router": "^7.2.1"
+    "koa-router": "^7.2.1",
+    "koa-unless": "^1.0.7"
   },
   "ava": {
     "files": [
