@@ -2,41 +2,47 @@ const parseLink = require('parse-link-header')
 const formatLink = require('format-link-header')
 
 const createProxy = (response) => {
-  const handler = {
-    set (obj, prop, value) {
-      const linkStr = response.get('Link')
-      const linkObj = parseLink(linkStr) || {}
+  const proto = {
+    get links () {
+      return parseLink(response.get('Link')) || {}
+    },
+    set links (obj) {
+      response.remove('Link')
+      return response.set('Link', formatLink(obj))
+    }
+  }
 
-      linkObj[prop] = typeof value === 'string'
+  const handler = {
+    set (ctx, prop, value) {
+      const obj = ctx.links
+
+      obj[prop] = typeof value === 'string'
         ? {
-            rel: prop,
-            url: value
-          }
+          rel: prop,
+          url: value
+        }
         : value
 
-      response.set('Link', formatLink(linkObj))
+      ctx.links = obj
 
       return true
     },
-    get (obj, prop) {
-      const linkStr = response.get('Link')
-      const linkObj = parseLink(linkStr) || {}
+    get (ctx, prop) {
+      const obj = ctx.links
 
-      return linkObj[prop]
+      return obj[prop]
     },
-    deleteProperty (obj, prop) {
-      const linkStr = response.get('Link')
-      const linkObj = parseLink(linkStr) || {}
+    deleteProperty (ctx, prop) {
+      const obj = ctx.links
 
-      delete linkObj[prop]
+      delete obj[prop]
 
-      response.set('Link', formatLink(linkObj))
-
+      ctx.links = obj
       return true
     }
   }
 
-  return new Proxy({}, handler)
+  return new Proxy(proto, handler)
 }
 
 module.exports = () => {
