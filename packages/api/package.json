@@ -19,9 +19,6 @@
     "standard": "^10.0.3"
   },
   "dependencies": {
-    "@daub/api-router-sessions": "^0.0.1",
-    "@daub/api-router-things": "^0.0.1",
-    "@daub/api-router-users": "^0.0.1",
     "jsonwebtoken": "^8.0.1",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
