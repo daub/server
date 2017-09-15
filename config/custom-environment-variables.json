@@ -1,6 +1,9 @@
 {
   "app": {
-    "port": "NODE_API_PORT"
+    "port": "NODE_API_PORT",
+    "jwt": {
+      "secret": "JWT_SECRET"
+    }
   },
   "db": {
     "url": "MONGODB_URL"

@@ -23,14 +23,14 @@ schema.methods.destroy = function () {
 schema.statics.register = async function (body = {}) {
   const { password } = body
 
-  const User = this
+  const Account = this
   const Password = this.model('Password')
 
-  const { id } = await User.create(body)
+  const { id } = await Account.create(body)
 
   const rollback = async (err) => {
     // what if rollback fail?
-    await User.findByIdAndRemove(id)
+    await Account.findByIdAndRemove(id)
     return Promise.reject(err)
   }
 
@@ -43,16 +43,20 @@ schema.statics.register = async function (body = {}) {
 schema.statics.login = async function (body={}) {
   const { email, password } = body
 
-  const User = this
+  const Account = this
   const Password = this.model('Password')
 
-  const user = await User
+  const account = await Account
     .findOne({ email })
     .populate('password')
 
-  const verified = await user.password.compare(password)
+  // TODO: normal errors
 
-  if (verified) return user
+  if (!account) throw new Error('Not Authorized')
+
+  const verified = await account.password.compare(password)
+
+  if (verified) return account
 
   throw new Error('Not Authorized')
 }
