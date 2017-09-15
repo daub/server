@@ -19,7 +19,8 @@
     "standard": "^10.0.3"
   },
   "dependencies": {
-    "jsonwebtoken": "^8.0.1",
+    "@daub/api-account": "^0.0.1",
+    "@daub/api-router-things": "^0.0.1",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-compose": "^4.0.0",
