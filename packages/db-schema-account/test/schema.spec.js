@@ -2,7 +2,7 @@ import test from 'ava'
 
 import mongoose from '@daub/test-mongoose'
 
-import userSchema from '../lib'
+import accountSchema from '../lib'
 
 import passwordSchema from '@daub/db-schema-password'
 
@@ -12,7 +12,7 @@ test.before(mongoose.start)
 test.after.always(mongoose.tearDown)
 
 const Password = mongoose.model('Password', passwordSchema)
-const User = mongoose.model('User', userSchema)
+const Account = mongoose.model('Account', accountSchema)
 
 const okEmail = 'exo@hopar.com'
 const okPassword = '0KPassword'
@@ -22,7 +22,7 @@ const badPassword = 'x'
 
 test('Register', async t => {
   const register = (email, password) => {
-    return User.register({ email, password })
+    return Account.register({ email, password })
   }
 
   await t.throws(register(badEmail, okPassword))
@@ -48,7 +48,7 @@ test('Register', async t => {
 
 test('Login', async t => {
   const login = (email, password) => {
-    return User.login({ email, password })
+    return Account.login({ email, password })
   }
 
   await t.throws(login(okEmail, badPassword))
@@ -59,7 +59,7 @@ test('Login', async t => {
 
   await login(okEmail, okPassword)
     .then(doc => {
-      t.true(doc instanceof User)
+      t.true(doc instanceof Account)
     })
 
 })

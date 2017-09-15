@@ -1,11 +1,13 @@
 {
-  "name": "@daub/db-schema-user",
+  "name": "@daub/db-schema-account",
   "version": "0.0.1",
   "main": "lib/index.js",
   "keywords": [
     "db",
     "schema",
-    "user"
+    "user",
+    "account",
+    "auth"
   ],
   "scripts": {
     "test": "ava -s --fail-fast",
