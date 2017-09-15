@@ -10,6 +10,14 @@ const router = new Router()
 
 router.use(auth.routes())
 
+router.get(
+  '/passthrough',
+  auth.verify({ passThrough: true }),
+  (ctx) => {
+    ctx.body = ctx.state.user
+  }
+)
+
 const request = Request(router)
 
 const { User } = request.app.context.models
@@ -79,5 +87,14 @@ test('Middleware', async t => {
     .then(res => {
       t.is(res.status, 200)
       t.truthy(res.data.id)
+    })
+
+  await request.get('/passthrough', { headers })
+    .then(res => {
+      t.is(res.status, 200)
+    })
+  await request.get('/passthrough')
+    .then(res => {
+      t.is(res.status, 204)
     })
 })
