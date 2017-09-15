@@ -23,6 +23,16 @@ const createProxy = (response) => {
       const linkObj = parseLink(linkStr) || {}
 
       return linkObj[prop]
+    },
+    deleteProperty (obj, prop) {
+      const linkStr = response.get('Link')
+      const linkObj = parseLink(linkStr) || {}
+
+      delete linkObj[prop]
+
+      response.set('Link', formatLink(linkObj))
+
+      return true
     }
   }
 
@@ -38,8 +48,9 @@ module.exports = () => {
         return createProxy(this)
       },
       set: function (obj) {
-        const links = createProxy(this)
+        this.remove('Link')
 
+        const links = createProxy(this)
         for (let prop in obj) {
           links[prop] = obj[prop]
         }

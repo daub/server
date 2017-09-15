@@ -35,7 +35,14 @@ test('set', async t => {
   app.use(linker())
 
   app.use(ctx => {
-    ctx.response.links = { exo: 'hopar' }
+    ctx.response.links.venus = 'test'
+
+    ctx.response.links = {
+      exo: 'hopar',
+      abigail: 'nyx'
+    }
+
+    delete ctx.response.links.abigail
 
     t.deepEqual(ctx.response.links.exo, {
       rel: 'exo',
