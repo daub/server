@@ -1,12 +1,11 @@
 {
-  "name": "@daub/api-auth",
+  "name": "@daub/api-account",
   "version": "0.0.1",
   "main": "lib/index.js",
   "keywords": [
     "server",
     "api",
     "router",
-    "sessions",
     "users",
     "auth",
     "tokens",

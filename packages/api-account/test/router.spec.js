@@ -14,7 +14,7 @@ router.get(
   '/passthrough',
   auth.verify({ passThrough: true }),
   (ctx) => {
-    ctx.body = ctx.state.user
+    ctx.body = ctx.state.account
   }
 )
 
