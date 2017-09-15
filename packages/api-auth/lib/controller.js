@@ -4,9 +4,11 @@ async function login (ctx) {
   const { User } = ctx.models
   const { body } = ctx.request
 
+  const { secret } = ctx.config.jwt
+
   const { id } = await User.login(body)
 
-  const accessToken = jwt.sign({ id }, 'secret')
+  const accessToken = jwt.sign({ id }, secret)
 
   ctx.status = 202
   ctx.body = { accessToken }

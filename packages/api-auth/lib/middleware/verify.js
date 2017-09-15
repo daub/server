@@ -16,13 +16,12 @@ const getToken = str => {
   return token
 }
 
-function fn (options = {}) {
-  const { passThrough } = options
-
+function fn ({ secret, passThrough } = {}) {
   function verify (ctx, next) {
     try {
+      secret = secret || ctx.config.jwt.secret
       const token = getToken(ctx.headers.authorization)
-      ctx.state.user = jwt.verify(token, 'secret')
+      ctx.state.user = jwt.verify(token, secret)
       return next()
     } catch (err) {
       if (passThrough) return next()

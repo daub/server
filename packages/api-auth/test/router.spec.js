@@ -20,7 +20,15 @@ router.get(
 
 const request = Request(router)
 
-const { User } = request.app.context.models
+const { context } = request.app
+
+context.config = {
+  jwt: {
+    secret: 'hopar'
+  }
+}
+
+const { User } = context.models
 
 const tokens = { invalid: 'x' }
 
