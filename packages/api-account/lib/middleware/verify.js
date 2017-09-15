@@ -21,7 +21,7 @@ function fn ({ secret, passThrough } = {}) {
     try {
       secret = secret || ctx.config.jwt.secret
       const token = getToken(ctx.headers.authorization)
-      ctx.state.user = jwt.verify(token, secret)
+      ctx.state.account = jwt.verify(token, secret)
       return next()
     } catch (err) {
       if (passThrough) return next()

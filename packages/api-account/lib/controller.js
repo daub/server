@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken')
 
 async function login (ctx) {
-  const { User } = ctx.models
+  const { Account } = ctx.models
   const { body } = ctx.request
 
   const { secret } = ctx.config.jwt
 
-  const { id } = await User.login(body)
+  const { id } = await Account.login(body)
 
   const accessToken = jwt.sign({ id }, secret)
 
@@ -15,19 +15,19 @@ async function login (ctx) {
 }
 
 async function register (ctx) {
-  const { User } = ctx.models
+  const { Account } = ctx.models
   const { body } = ctx.request
 
-  const doc = await User.register(body)
+  const doc = await Account.register(body)
 
   ctx.status = 204
   ctx.body = null
 }
 
 async function expose (ctx) {
-  ctx.assert(ctx.state.user, 401)
+  ctx.assert(ctx.state.account, 401)
 
-  ctx.body = ctx.state.user
+  ctx.body = ctx.state.account
 }
 
 module.exports = {
