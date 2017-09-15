@@ -11,7 +11,7 @@ const verify = require('./middleware/verify')
 const errorHandler = require('./error-handler')
 
 const router = new Router({
-  prefix: '/auth'
+  prefix: '/account'
 })
 
 router.use(errorHandler)
