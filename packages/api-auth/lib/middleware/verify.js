@@ -3,9 +3,9 @@ const jwt = require('jsonwebtoken')
 const getToken = str => {
   const err = new Error('No valid token')
 
-  const reSchmea = /^Bearer/i
+  const schema = /^Bearer/i
 
-  if (!str || !reSchmea.test(str)) throw err
+  if (!str || !schema.test(str)) throw err
 
   const token = str.split(' ').pop()
 
@@ -14,11 +14,12 @@ const getToken = str => {
   return token
 }
 
-function middleware () {
+function fn () {
   function verify (ctx, next) {
     try {
       const token = getToken(ctx.headers.authorization)
       ctx.state.user = jwt.verify(token, 'secret')
+      return next()
     } catch (err) {
       ctx.status = 401
     }
@@ -27,4 +28,4 @@ function middleware () {
   return verify
 }
 
-module.exports = middleware
+module.exports = fn

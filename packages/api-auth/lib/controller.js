@@ -22,7 +22,14 @@ async function register (ctx) {
   ctx.body = null
 }
 
+async function expose (ctx) {
+  ctx.assert(ctx.state.user, 401)
+
+  ctx.body = ctx.state.user
+}
+
 module.exports = {
   login,
-  register
+  register,
+  expose
 }

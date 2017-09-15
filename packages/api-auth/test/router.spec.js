@@ -4,14 +4,13 @@ import Router from 'koa-router'
 
 import Request from '@daub/test-router-axios'
 
-import router from '../lib'
+import auth from '../lib'
 
-const proxy = new Router()
+const router = new Router()
 
-proxy.use(router.routes())
-proxy.use(router.verify())
+router.use(auth.routes())
 
-const request = Request(proxy)
+const request = Request(router)
 
 const { User } = request.app.context.models
 
@@ -69,6 +68,16 @@ test('Login', async t => {
 })
 
 test('Middleware', async t => {
-  await t.throws(request.get('/etc'))
+  await t.throws(request.get('/auth'))
     .then(checkErrors(t, 401))
+
+  const headers = {
+    'Authorization': `Bearer ${tokens.valid}`
+  }
+
+  await request.get('/auth', { headers })
+    .then(res => {
+      t.is(res.status, 200)
+      t.truthy(res.data.id)
+    })
 })
