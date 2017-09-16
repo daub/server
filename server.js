@@ -2,15 +2,9 @@ const http = require('http')
 
 const config = require('config')
 
-const db = require('@daub/db')
-const api = require('@daub/api')
+const app = require('./packages/server')
 
-api.context.models = db.models
-api.context.config = config.get('app')
-
-db.connect(config.get('db.url'))
-
-const server = http.createServer(api.callback())
+const server = http.createServer(app.callback())
 
 const port = config.get('app.port')
 server.listen(port, (err) => {

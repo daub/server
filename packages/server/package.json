@@ -1,5 +1,5 @@
 {
-  "name": "@daub/api",
+  "name": "@daub/server",
   "version": "0.0.1",
   "main": "lib/index.js",
   "keywords": [
@@ -19,8 +19,10 @@
     "standard": "^10.0.3"
   },
   "dependencies": {
+    "@daub/db": "^0.0.1",
     "@daub/api-account": "^0.0.1",
     "@daub/api-router-things": "^0.0.1",
+    "config": "^1.26.2",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-compose": "^4.0.0",
