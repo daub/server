@@ -29,7 +29,7 @@ test('basic', async t => {
   t.is(res.headers.link, '<hopar>; rel="exo"')
 })
 
-test('set', async t => {
+test('set/delete', async t => {
   const app = new Koa()
 
   app.use(linker())
