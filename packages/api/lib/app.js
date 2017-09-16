@@ -2,6 +2,7 @@ const Koa = require('koa')
 
 const bodyParser = require('koa-bodyparser')
 const logger = require('koa-logger')
+const links = require('koa-links')
 
 const app = new Koa()
 
@@ -15,5 +16,7 @@ app.use((ctx, next) => {
 })
 
 app.use(bodyParser())
+
+app.use(links())
 
 module.exports = app

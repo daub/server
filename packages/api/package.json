@@ -25,6 +25,7 @@
     "koa-bodyparser": "^4.2.0",
     "koa-compose": "^4.0.0",
     "koa-jwt": "^3.2.2",
+    "koa-links": "0.0.1",
     "koa-logger": "^3.0.1",
     "koa-router": "^7.2.1"
   },
