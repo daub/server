@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt-nodejs')
+
 const Schema = require('@daub/db-schema')
 
 const props = require('./props')
@@ -8,57 +10,48 @@ const schema = new Schema(props)
 
 schema.plugin(sensible)
 
-schema.virtual('password', {
-  ref: 'Password',
-  localField: '_id',
-  foreignField: 'owner',
-  justOne: true
-})
-
 schema.methods.destroy = function () {
   return this.constructor
     .findByIdAndRemove(this._id)
 }
 
-schema.statics.register = async function (body = {}) {
-  const { password } = body
+schema.pre('save', function (next) {
+  if (!this.isModified('password')) return next()
 
-  const Account = this
-  const Password = this.model('Password')
+  bcrypt.hash(this.password, null, null, (err, hash) => {
+    if (err) return next(err)
 
-  const { id } = await Account.create(body)
-
-  const rollback = async (err) => {
-    // what if rollback fail?
-    await Account.findByIdAndRemove(id)
-    return Promise.reject(err)
-  }
-
-  return Password
-    .create({ owner: id, password })
-    .catch(rollback)
-    .then(() => ({ id }))
-}
+    this.password = hash
+    next()
+  })
+})
 
 schema.statics.login = async function (body={}) {
   const { email, password } = body
 
   const Account = this
-  const Password = this.model('Password')
 
   const account = await Account
     .findOne({ email })
-    .populate('password')
-
+    .select('password')
   // TODO: normal errors
 
   if (!account) throw new Error('Not Authorized')
 
-  const verified = await account.password.compare(password)
+  return account
+    .verifyPassword(password)
+}
 
-  if (verified) return account
+schema.methods.verifyPassword = function (password) {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(password, this.password, (err, res) => {
+      if (err) return reject(err)
+      if (res) return resolve(this)
 
-  throw new Error('Not Authorized')
+      const error = new Error('Not Authorized')
+      reject(error)
+    })
+  })
 }
 
 module.exports = schema
