@@ -1,3 +1,5 @@
+const delegate = require('delegates')
+
 const parseLink = require('parse-link-header')
 const formatLink = require('format-link-header')
 
@@ -62,6 +64,9 @@ module.exports = () => {
         }
       }
     })
+
+    delegate(ctx, 'response')
+      .access('links')
 
     return next()
   }

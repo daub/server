@@ -22,6 +22,7 @@
     "standard": "^10.0.3"
   },
   "dependencies": {
+    "delegates": "^1.0.0",
     "format-link-header": "^2.0.0",
     "parse-link-header": "^1.0.1"
   },

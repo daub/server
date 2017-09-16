@@ -12,9 +12,9 @@ test('basic', async t => {
   app.use(linker())
 
   app.use(ctx => {
-    ctx.response.links.exo = 'hopar'
+    ctx.links.exo = 'hopar'
 
-    t.deepEqual(ctx.response.links.exo, {
+    t.deepEqual(ctx.links.exo, {
       rel: 'exo',
       url: 'hopar'
     })
@@ -35,16 +35,16 @@ test('set', async t => {
   app.use(linker())
 
   app.use(ctx => {
-    ctx.response.links.venus = 'test'
+    ctx.links.venus = 'test'
 
-    ctx.response.links = {
+    ctx.links = {
       exo: 'hopar',
       abigail: 'nyx'
     }
 
-    delete ctx.response.links.abigail
+    delete ctx.links.abigail
 
-    t.deepEqual(ctx.response.links.exo, {
+    t.deepEqual(ctx.links.exo, {
       rel: 'exo',
       url: 'hopar'
     })
