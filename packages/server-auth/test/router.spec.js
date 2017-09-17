@@ -2,11 +2,13 @@ import test from 'ava'
 
 import Router from 'koa-router'
 
-import Request from '@daub/test-router-axios'
+import Request from '@daub/test-middleware'
 
 import auth from '../lib'
 
-const request = Request(auth)
+const options = { db: Request.app.db }
+
+const request = Request(auth, options)
 
 const { context } = request.app
 
