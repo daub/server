@@ -1,12 +1,11 @@
 {
-  "name": "@daub/db-schema-account",
+  "name": "@daub/db-schema-user",
   "version": "0.0.1",
   "main": "lib/index.js",
   "keywords": [
     "db",
     "schema",
     "user",
-    "account",
     "auth"
   ],
   "scripts": {

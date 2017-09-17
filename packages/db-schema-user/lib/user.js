@@ -1,10 +1,8 @@
 const { encrypt, compare } = require('./bcrypt')
 
-class Account {
+class User {
   async verify (password) {
-    const Account = this.constructor
-
-    const account = await Account
+    const account = await this.constructor
       .findById(this._id)
       .select('password')
 
@@ -30,7 +28,7 @@ class Account {
   }
 }
 
-Account.install = function (schema) {
+User.install = function (schema) {
   schema.pre('save', function (next) {
     if (!this.isModified('password')) return next()
 
@@ -51,4 +49,4 @@ async function reject (errors) {
   return Promise.reject(err)
 }
 
-module.exports = Account
+module.exports = User

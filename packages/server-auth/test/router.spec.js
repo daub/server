@@ -4,19 +4,11 @@ import Router from 'koa-router'
 
 import Request from '@daub/test-router-axios'
 
-import account from '../lib'
+import auth from '../lib'
 
 const router = new Router()
 
-router.use(account.routes())
-
-router.get(
-  '/passthrough',
-  account.verify({ passThrough: true }),
-  (ctx) => {
-    ctx.body = ctx.state.account
-  }
-)
+router.use(auth.routes())
 
 const request = Request(router)
 
@@ -57,23 +49,23 @@ const checkErrors = (t, code, ...props) => err => {
 test.before(Request.loadDb)
 
 test('Register', async t => {
-  await t.throws(request.post('/account/register', bodies.invalidEmail))
+  await t.throws(request.post('/auth/register', bodies.invalidEmail))
     .then(checkErrors(t, 422, 'email'))
 
-  await t.notThrows(request.post('/account/register', bodies.valid))
+  await t.notThrows(request.post('/auth/register', bodies.valid))
 
-  await t.throws(request.post('/account/register', bodies.valid))
+  await t.throws(request.post('/auth/register', bodies.valid))
     .then(checkErrors(t, 409, 'email'))
 })
 
 test('Login', async t => {
-  await t.throws(request.post('/account/login', bodies.invalidEmail))
+  await t.throws(request.post('/auth/login', bodies.invalidEmail))
     .then(checkErrors(t, 401))
 
-  await t.throws(request.post('/account/login', bodies.invalidPassword))
+  await t.throws(request.post('/auth/login', bodies.invalidPassword))
     .then(checkErrors(t, 401))
 
-  tokens.valid = await request.post('/account/login', bodies.valid)
+  tokens.valid = await request.post('/auth/login', bodies.valid)
     .then(res => {
       t.is(res.status, 202)
 
@@ -83,26 +75,17 @@ test('Login', async t => {
     })
 })
 
-test('Middleware', async t => {
-  await t.throws(request.get('/account'))
+test('Verify', async t => {
+  await t.throws(request.get('/auth/verify'))
     .then(checkErrors(t, 401))
 
   const headers = {
     'Authorization': `Bearer ${tokens.valid}`
   }
 
-  await request.get('/account', { headers })
-    .then(res => {
-      t.is(res.status, 200)
-      t.truthy(res.data.id)
-    })
-
-  await request.get('/passthrough', { headers })
-    .then(res => {
-      t.is(res.status, 200)
-    })
-  await request.get('/passthrough')
+  await request.get('/auth/verify', { headers })
     .then(res => {
       t.is(res.status, 204)
+      t.truthy(res.headers.link)
     })
 })

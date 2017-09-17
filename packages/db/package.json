@@ -20,7 +20,7 @@
   "dependencies": {
     "@daub/db-schema": "^0.0.1",
     "@daub/db-schema-thing": "^0.0.1",
-    "@daub/db-schema-account": "^0.0.1",
+    "@daub/db-schema-user": "^0.0.1",
     "mongoose": "^4.11.10"
   },
   "ava": {
