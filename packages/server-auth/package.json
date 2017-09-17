@@ -1,6 +1,6 @@
 {
   "name": "@daub/server-auth",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "lib/index.js",
   "keywords": [
     "server",
@@ -19,8 +19,8 @@
   },
   "license": "UNLICENSED",
   "devDependencies": {
-    "@daub/db-schema-user": "^0.0.1",
-    "@daub/test-middleware": "^0.0.1",
+    "@daub/db-schema-user": "^0.0.2",
+    "@daub/test-middleware": "^0.0.2",
     "ava": "^0.22.0",
     "lodash": "^4.17.4",
     "standard": "^10.0.3"
