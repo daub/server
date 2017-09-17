@@ -1,6 +1,6 @@
 {
   "name": "@daub/db",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "lib/index.js",
   "keywords": [
     "db"
@@ -18,8 +18,7 @@
     "standard": "^10.0.3"
   },
   "dependencies": {
-    "@daub/db-schema": "^0.0.1",
-    "@daub/db-schema-thing": "^0.0.1",
+    "@daub/db-schema": "^0.0.2",
     "mongoose": "^4.11.10"
   },
   "ava": {

@@ -1,19 +1,17 @@
 const { Mongoose } = require('mongoose')
 
+const timestamps = require('./plugins/timestamps')
+
 const {
   keys,
   assign
 } = Object
 
 class Database {
-  constructor (schemas, types) {
+  constructor () {
     const mongoose = new Mongoose()
 
-    keys(schemas).forEach(name => {
-      mongoose.model(name, schemas[name])
-    })
-
-    assign(mongoose.Schema.Types, types)
+    mongoose.plugin(timestamps)
 
     this.mongoose = assign(mongoose, { Promise })
   }
@@ -22,6 +20,18 @@ class Database {
   }
   get connection () {
     return this.mongoose.connection
+  }
+  model (name, schema) {
+    this.mongoose.model(name, schema)
+  }
+  import (schemas, types) {
+    assign(this.mongoose.Schema.Types, types)
+
+    keys(schemas).forEach(name => {
+      this.model(name, schemas[name])
+    })
+
+    return this
   }
   connect (url) {
     const options = {

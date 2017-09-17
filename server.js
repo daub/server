@@ -1,18 +1,23 @@
-const http = require('http')
-
 const config = require('config')
 
-const db = require('@daub/db')
-const api = require('@daub/api')
+const jwt = require('koa-jwt')
 
-api.context.models = db.models
-api.context.config = config.get('app')
+const app = require('./packages/server')
+const auth = require('./packages/server-auth')
 
-db.connect(config.get('db.url'))
-
-const server = http.createServer(api.callback())
+const { db } = app
 
 const port = config.get('app.port')
-server.listen(port, (err) => {
+
+app.context.config = config.get('app')
+
+app.use(auth(app))
+
+const secret = config.get('app.jwt.secret')
+
+app.use(jwt({ secret }))
+
+app.listen(port, (err) => {
+  db.connect(config.get('db.url'))
   console.log(`Server listening to port ${port}`)
 })

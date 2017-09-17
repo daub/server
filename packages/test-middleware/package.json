@@ -1,11 +1,11 @@
 {
-  "name": "@daub/test-router-axios",
-  "version": "0.0.1",
+  "name": "@daub/test-middleware",
+  "version": "0.0.2",
   "main": "lib/index.js",
   "keywords": [
-    "server",
     "test",
-    "router",
+    "server",
+    "middleware",
     "axios"
   ],
   "scripts": {
@@ -17,12 +17,10 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "ava": "^0.22.0",
-    "standard": "^10.0.3",
-    "koa-router": "^7.2.1"
+    "standard": "^10.0.3"
   },
   "dependencies": {
-    "@daub/db": "^0.0.1",
-    "@daub/api": "^0.0.1",
+    "@daub/server": "^0.0.2",
     "axios-serve": "^1.1.0",
     "mongomem": "^0.1.9"
   },

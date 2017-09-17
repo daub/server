@@ -1,7 +1,4 @@
 {
-  "name": "@daub/server",
-  "version": "0.0.1",
-  "repository": "daub/server",
   "scripts": {
     "test": "lerna bootstrap && lerna run test",
     "lint": "lerna run lint",
@@ -12,9 +9,8 @@
     "nodemon": "^1.12.0"
   },
   "dependencies": {
-    "@daub/api": "file:packages/api",
-    "@daub/db": "file:packages/db",
-    "config": "^1.26.2"
+    "config": "^1.26.2",
+    "koa-jwt": "^3.2.2"
   },
   "license": "MIT"
 }
