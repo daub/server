@@ -7,7 +7,7 @@ const db = require('@daub/db')
 
 function Request (router) {
   app.context.models = db.models
-  app.context.config = { jwt: { secret: 'secret' } }
+  app.context.config = {}
 
   app.use(router.routes())
 
