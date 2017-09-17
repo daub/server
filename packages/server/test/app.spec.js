@@ -4,16 +4,20 @@ import Axios from 'axios-serve'
 
 import app from '../lib'
 
-test('no models', async t => {
-  const request = Axios.createServer(app.callback())
+app.use((ctx, next) => {
+  if (ctx.path !== '/page') return next()
 
-  await t.throws(request.get('/no-page'), /(.*) 501$/)
+  ctx.links.root = '/'
+  ctx.body = 'page'
 })
 
-test('/', async t => {
-  app.context.models = {}
+test('misc', async t => {
+  const req = Axios.createServer(app.callback())
 
-  const request = Axios.createServer(app.callback())
+  await t.throws(req.get('/no-page'), /(.*) 404$/)
 
-  await t.throws(request.get('/no-page'), /(.*) 404/)
+  const res = await req.get('/page')
+
+  t.is(res.data, 'page')
+  t.truthy(res.headers.link)
 })
