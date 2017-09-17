@@ -1,5 +1,7 @@
 const { Mongoose } = require('mongoose')
 
+const timestamps = require('./plugins/timestamps')
+
 const {
   keys,
   assign
@@ -8,6 +10,8 @@ const {
 class Database {
   constructor (schemas, types) {
     const mongoose = new Mongoose()
+
+    mongoose.plugin(timestamps)
 
     keys(schemas).forEach(name => {
       mongoose.model(name, schemas[name])

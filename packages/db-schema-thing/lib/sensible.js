@@ -7,8 +7,6 @@ const defaults = {
 module.exports = (schema, options) => {
   const { virtuals } = assign({}, defaults, options)
 
-  schema.set('timestamps', true)
-
   schema.virtual('id').get(function(){
     return this._id.toHexString();
   })
