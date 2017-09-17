@@ -8,19 +8,12 @@ const {
 } = Object
 
 class Database {
-  constructor (schemas, types) {
+  constructor () {
     const mongoose = new Mongoose()
 
     mongoose.plugin(timestamps)
 
-    assign(mongoose.Schema.Types, types)
-
     this.mongoose = assign(mongoose, { Promise })
-
-    keys(schemas).forEach(name => {
-      this.model(name, schemas[name])
-    })
-
   }
   get models () {
     return this.mongoose.models
@@ -30,6 +23,15 @@ class Database {
   }
   model (name, schema) {
     this.mongoose.model(name, schema)
+  }
+  import (schemas, types) {
+    assign(this.mongoose.Schema.Types, types)
+
+    keys(schemas).forEach(name => {
+      this.model(name, schemas[name])
+    })
+
+    return this
   }
   connect (url) {
     const options = {
