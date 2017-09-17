@@ -1,12 +1,14 @@
 const Axios = require('axios-serve')
 
-const app = require('@daub/api/lib/app')
+const app = require('@daub/server/lib/app')
 
 const { MongoDBServer } = require('mongomem')
 const db = require('@daub/db')
 
 function Request (router) {
   app.context.models = db.models
+  app.context.config = { jwt: { secret: 'secret' } }
+
   app.use(router.routes())
 
   const axios = Axios.createServer(app.callback())
