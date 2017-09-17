@@ -6,11 +6,7 @@ import Request from '@daub/test-router-axios'
 
 import auth from '../lib'
 
-const router = new Router()
-
-router.use(auth.routes())
-
-const request = Request(router)
+const request = Request(auth)
 
 const { context } = request.app
 

@@ -13,19 +13,23 @@ class Database {
 
     mongoose.plugin(timestamps)
 
-    keys(schemas).forEach(name => {
-      mongoose.model(name, schemas[name])
-    })
-
     assign(mongoose.Schema.Types, types)
 
     this.mongoose = assign(mongoose, { Promise })
+
+    keys(schemas).forEach(name => {
+      this.model(name, schemas[name])
+    })
+
   }
   get models () {
     return this.mongoose.models
   }
   get connection () {
     return this.mongoose.connection
+  }
+  model (name, schema) {
+    this.mongoose.model(name, schema)
   }
   connect (url) {
     const options = {

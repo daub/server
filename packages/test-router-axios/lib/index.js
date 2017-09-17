@@ -5,11 +5,13 @@ const app = require('@daub/server/lib/app')
 const { MongoDBServer } = require('mongomem')
 const db = require('@daub/db')
 
-function Request (router) {
+function Request (middleware) {
+  app.db = db
+
   app.context.models = db.models
   app.context.config = {}
 
-  app.use(router.routes())
+  app.use(middleware(app))
 
   const axios = Axios.createServer(app.callback())
 
