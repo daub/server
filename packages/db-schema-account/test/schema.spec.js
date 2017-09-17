@@ -57,6 +57,7 @@ test('Login', async t => {
   await t.notThrows(p)
 
   await p.then(doc => {
+    t.true(doc.password == null)
     t.true(doc instanceof Account)
   })
 
