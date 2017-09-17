@@ -20,7 +20,7 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "@daub/db-schema-user": "^0.0.1",
-    "@daub/test-router-axios": "^0.0.1",
+    "@daub/test-middleware": "^0.0.1",
     "ava": "^0.22.0",
     "lodash": "^4.17.4",
     "standard": "^10.0.3"
