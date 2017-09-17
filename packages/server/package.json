@@ -19,17 +19,12 @@
     "standard": "^10.0.3"
   },
   "dependencies": {
-    "@daub/server-auth": "^0.0.1",
-    "@daub/api-router-things": "^0.0.1",
     "@daub/db": "^0.0.1",
-    "config": "^1.26.2",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-compose": "^4.0.0",
-    "koa-jwt": "^3.2.2",
     "koa-links": "0.0.1",
-    "koa-logger": "^3.0.1",
-    "koa-router": "^7.2.1"
+    "koa-logger": "^3.0.1"
   },
   "ava": {
     "files": [
