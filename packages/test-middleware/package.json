@@ -1,9 +1,12 @@
 {
-  "name": "@daub/db",
+  "name": "@daub/test-middleware",
   "version": "0.0.1",
   "main": "lib/index.js",
   "keywords": [
-    "db"
+    "test",
+    "server",
+    "middleware",
+    "axios"
   ],
   "scripts": {
     "test": "ava -s --fail-fast",
@@ -14,12 +17,12 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "ava": "^0.22.0",
-    "mongomem": "^0.1.9",
     "standard": "^10.0.3"
   },
   "dependencies": {
-    "@daub/db-schema": "^0.0.1",
-    "mongoose": "^4.11.10"
+    "@daub/server": "^0.0.1",
+    "axios-serve": "^1.1.0",
+    "mongomem": "^0.1.9"
   },
   "ava": {
     "files": [

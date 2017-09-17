@@ -1,9 +1,10 @@
 {
-  "name": "@daub/db",
+  "name": "@daub/server",
   "version": "0.0.1",
   "main": "lib/index.js",
   "keywords": [
-    "db"
+    "server",
+    "api"
   ],
   "scripts": {
     "test": "ava -s --fail-fast",
@@ -14,12 +15,16 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "ava": "^0.22.0",
-    "mongomem": "^0.1.9",
+    "axios-serve": "^1.1.2",
     "standard": "^10.0.3"
   },
   "dependencies": {
-    "@daub/db-schema": "^0.0.1",
-    "mongoose": "^4.11.10"
+    "@daub/db": "^0.0.1",
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-compose": "^4.0.0",
+    "koa-links": "0.0.1",
+    "koa-logger": "^3.0.1"
   },
   "ava": {
     "files": [

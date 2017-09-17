@@ -1,9 +1,12 @@
 {
-  "name": "@daub/db",
+  "name": "@daub/db-schema-user",
   "version": "0.0.1",
   "main": "lib/index.js",
   "keywords": [
-    "db"
+    "db",
+    "schema",
+    "user",
+    "auth"
   ],
   "scripts": {
     "test": "ava -s --fail-fast",
@@ -14,12 +17,13 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "ava": "^0.22.0",
-    "mongomem": "^0.1.9",
+    "@daub/test-mongoose": "^0.0.1",
     "standard": "^10.0.3"
   },
   "dependencies": {
     "@daub/db-schema": "^0.0.1",
-    "mongoose": "^4.11.10"
+    "bcrypt": "^1.0.3",
+    "bcrypt-nodejs": "0.0.3"
   },
   "ava": {
     "files": [

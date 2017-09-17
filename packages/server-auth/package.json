@@ -1,9 +1,15 @@
 {
-  "name": "@daub/db",
+  "name": "@daub/server-auth",
   "version": "0.0.1",
   "main": "lib/index.js",
   "keywords": [
-    "db"
+    "server",
+    "api",
+    "router",
+    "users",
+    "auth",
+    "tokens",
+    "jwt"
   ],
   "scripts": {
     "test": "ava -s --fail-fast",
@@ -13,13 +19,16 @@
   },
   "license": "UNLICENSED",
   "devDependencies": {
+    "@daub/db-schema-user": "^0.0.1",
+    "@daub/test-middleware": "^0.0.1",
     "ava": "^0.22.0",
-    "mongomem": "^0.1.9",
+    "lodash": "^4.17.4",
     "standard": "^10.0.3"
   },
   "dependencies": {
-    "@daub/db-schema": "^0.0.1",
-    "mongoose": "^4.11.10"
+    "jsonwebtoken": "^8.0.1",
+    "koa-router": "^7.2.1",
+    "koa-unless": "^1.0.7"
   },
   "ava": {
     "files": [
