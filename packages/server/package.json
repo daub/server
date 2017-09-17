@@ -19,9 +19,9 @@
     "standard": "^10.0.3"
   },
   "dependencies": {
-    "@daub/db": "^0.0.1",
-    "@daub/api-account": "^0.0.1",
+    "@daub/server-auth": "^0.0.1",
     "@daub/api-router-things": "^0.0.1",
+    "@daub/db": "^0.0.1",
     "config": "^1.26.2",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",

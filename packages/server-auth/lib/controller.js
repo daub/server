@@ -24,14 +24,34 @@ async function register (ctx) {
   ctx.body = null
 }
 
-async function expose (ctx) {
-  ctx.assert(ctx.state.account, 401)
+async function verify (ctx) {
+  try {
+    const { secret } = ctx.config.jwt
+    const token = getToken(ctx.headers.authorization)
+    const payload = jwt.verify(token, secret)
+    ctx.links.self = `/persons/${payload.id}`
+    ctx.body = null
+  } catch (err) {
+    ctx.throw(401)
+  }
+}
 
-  ctx.body = ctx.state.account
+function getToken(str) {
+  const err = new Error('No valid token')
+
+  const schema = /^Bearer/i
+
+  if (!str || !schema.test(str)) throw err
+
+  const token = str.split(' ').pop()
+
+  if (!token) throw err
+
+  return token
 }
 
 module.exports = {
   login,
   register,
-  expose
+  verify
 }
